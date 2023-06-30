@@ -43,6 +43,20 @@ export const handlerVoiceCommands = (finalTranscript, modeler) => {
     createElement(elementName, modeler, "Gateway");
     //createGateway(lcTranscript, modeler);
   }
+
+  if (lcTranscript.includes("entonces")) {
+    //ejemplo input: 'entonces crear tarea caminar'
+    //debe splitear el input para detectar que entonces se refiere a la respuesta positiva del ultimo gateway, y lo que quiere crear es una tarea
+    //ejemplo2 input: 'entonces crear gateway cordones atados?'
+    //debe splitear el input para detectar que entonces se refiere a la respuesta positiva del ultimo gateway, y lo que quiere crear es un gateway
+  }
+
+  if (lcTranscript.includes("de lo contrario")) {
+    //ejemplo input: 'de lo contrario crear tarea caminar'
+    //debe splitear el input para detectar que entonces se refiere a la respuesta negativa del ultimo gateway, y lo que quiere crear es una tarea
+    //ejemplo2 input: 'de lo contrario crear gateway cordones atados?'
+    //debe splitear el input para detectar que entonces se refiere a la respuesta negativa del ultimo gateway, y lo que quiere crear es un gateway
+  }
 };
 // const createGateway = (finalTranscript, modeler) => {
 //   let transcriptArray;
@@ -83,7 +97,7 @@ export const handlerVoiceCommands = (finalTranscript, modeler) => {
 //   }
 // };
 
-const createElement = (elementName, modeler, elementType) => {
+const createElement = (elementName, modeler, elementType, gatewayBranch) => {
   const elementRegistry = modeler.get("elementRegistry");
   if (existID(elementName, elementRegistry, elementType).length === 0) {
     const bpmnFactory = modeler.get("bpmnFactory");
